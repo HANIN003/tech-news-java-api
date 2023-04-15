@@ -20,11 +20,11 @@ public class User implements Serializable {
     private String password;
     @Transient
     boolean loggedIn;
-    @OneToMany(mappedBy = userId, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Post> posts;
-    @OneToMany(mappedBy = userId, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vote> votes;
-    @OneToMany(mappedBy = userId, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
     public User(Integer id, String username, String email, String password) {
