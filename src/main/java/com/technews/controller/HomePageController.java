@@ -1,5 +1,6 @@
 package com.technews.controller;
 
+import com.technews.model.Comment;
 import com.technews.model.Post;
 import com.technews.model.User;
 import com.technews.repository.CommentRepository;
@@ -9,6 +10,7 @@ import com.technews.repository.VoteRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -62,7 +64,7 @@ public class HomePageController {
         List<Post> postList = postRepository.findAll();
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.getReferenceById(p.getUserId());
             p.setUserName(user.getUsername());
         }
 
@@ -145,7 +147,7 @@ public class HomePageController {
         List<Post> postList = postRepository.findAllPostsByUserId(userId);
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.getReferenceById(p.getUserId());
             p.setUserName(user.getUsername());
         }
 
@@ -165,10 +167,10 @@ public class HomePageController {
             model.addAttribute("loggedIn", sessionUser.isLoggedIn());
         }
 
-        Post post = postRepository.getById(id);
+        Post post = postRepository.getReferenceById(id);
         post.setVoteCount(voteRepository.countVotesByPostId(post.getId()));
 
-        User postUser = userRepository.getById(post.getUserId());
+        User postUser = userRepository.getReferenceById(post.getUserId());
         post.setUserName(postUser.getUsername());
 
         List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
@@ -186,8 +188,8 @@ public class HomePageController {
         if (request.getSession(false) != null) {
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
 
-            Post returnPost = postRepository.getById(id);
-            User tempUser = userRepository.getById(returnPost.getUserId());
+            Post returnPost = postRepository.getReferenceById(id);
+            User tempUser = userRepository.getReferenceById(returnPost.getUserId());
             returnPost.setUserName(tempUser.getUsername());
             returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
 
