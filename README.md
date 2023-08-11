@@ -9,7 +9,7 @@ The user will want to use the IntelliJ IDEA as the app was written using that sp
 Lastly the user will run the app using the "run" command in the IDE.
 
 ## Usage
-To see the app in progress, use a web browser and go to 'localhost:8082'  
+To see the app in action, use a web browser and go to 'localhost:8082'  
 ![home page](src/main/resources/static/images/Just%20Tech%20News.png)
 The user can log in or signup on the login page:
 ![login page](/src/main/resources/static/images/Just%20Tech%20News%202.png)  
